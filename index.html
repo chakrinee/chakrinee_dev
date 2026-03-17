@@ -6,7 +6,7 @@
     <title>Chakrinee Ayalasomayajula - AI Security Enthusiast</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@700;900&family=Michroma&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,7 +17,7 @@
         :root {
             --color-bg: #0a0e1a;
             --color-primary: #3ba2b9;
-            --color-secondary: #966c83;
+            --color-secondary: #A14EBF;
             --color-text: #e0e7ff;
             --color-text-muted: #4186a8;
             --font-display: 'Inter', sans-serif;
@@ -101,19 +101,74 @@
             z-index: 1;
         }
 
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 10vw, 7rem);
+        .hero-title-wrap {
+            position: relative;
+            display: inline-block;
+            max-width: 92vw;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 2rem 1rem;
+        }
+
+        .hero-title-wrap::before {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            font-family: 'Michroma', sans-serif;
+            font-size: clamp(2rem, 6.5vw, 8rem);
             font-weight: 900;
-            letter-spacing: 0.02em;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #00d9ff, #ff0080, #00d9ff);
-            background-size: 200% 200%;
+            letter-spacing: 0.06em;
+            line-height: 1.2;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            text-align: center;
+            background: linear-gradient(135deg, #00d9ff, #a78bfa, #00ffcc, #00d9ff);
+            background-size: 300% 300%;
+            background-position: 50% 50%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: blur(22px) brightness(2);
+            z-index: 0;
+            transform: scale(1.03);
+            animation: nameGlow 4s ease-in-out infinite;
+        }
+
+        .hero-title {
+            font-family: 'Michroma', sans-serif;
+            font-size: clamp(2rem, 6.5vw, 8rem);
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            background: linear-gradient(135deg, #00d9ff, #a78bfa, #00ffcc, #00d9ff);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 5s ease infinite;
-            text-shadow: 0 0 80px rgba(0, 217, 255, 0.3);
+            word-break: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.2;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 0 1rem 0.2rem;
+            animation: nameGradient 4s ease-in-out infinite, nameEntrance 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+            text-shadow: none;
+        }
+
+        @keyframes nameGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes nameGlow {
+            0%, 100% { filter: blur(22px) brightness(1.8); opacity: 0.7; }
+            50% { filter: blur(28px) brightness(2.4); opacity: 1; }
+        }
+
+        @keyframes nameEntrance {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes gradientShift {
@@ -189,7 +244,7 @@
         }
 
         .btn-secondary:hover {
-            box-shadow: 0 0 30px rgba(255, 0, 128, 0.5);
+            box-shadow: 0 0 30px rgba(161, 78, 191, 0.5);
         }
 
         .scroll-indicator {
@@ -552,156 +607,142 @@
             margin-top: 1.5rem;
         }
 
-        .projects-timeline {
-            position: relative;
-            max-width: 1000px;
-            margin: 3rem auto;
-            padding: 2rem 0;
+        .experience-tags .tag {
+            background: rgba(0, 217, 255, 0.08);
+            border: 1.5px solid var(--color-primary);
+            color: var(--color-primary);
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, var(--color-primary), var(--color-secondary), var(--color-primary));
-            transform: translateX(-50%);
+        .experience-tags .tag:hover {
+            background: rgba(0, 217, 255, 0.18);
         }
+
+        .projects-timeline {
+            max-width: 900px;
+            margin: 3rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .timeline-line { display: none; }
+        .timeline-dot { display: none; }
 
         .timeline-item {
+            display: block;
             position: relative;
-            margin-bottom: 4rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .timeline-item:nth-child(odd) {
-            flex-direction: row;
-        }
-
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            background: var(--color-primary);
-            border: 4px solid var(--color-bg);
-            border-radius: 50%;
-            z-index: 10;
-            box-shadow: 0 0 20px var(--color-primary);
         }
 
         .timeline-date {
-            position: absolute;
-            left: 50%;
-            top: -35px;
-            transform: translateX(-50%);
-            background: var(--color-bg);
-            padding: 0.5rem 1rem;
-            border-radius: 12px;
-            border: 1px solid var(--color-primary);
-            color: var(--color-primary);
-            font-size: 0.85rem;
-            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            position: relative;
+            left: auto;
+            top: auto;
+            transform: none;
+            background: none;
+            border: none;
+            color: #A14EBF;
+            font-size: 0.92rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.6rem;
+            padding: 0;
             white-space: nowrap;
-            z-index: 10;
+            text-shadow: 0 0 10px rgba(161, 78, 191, 0.4);
         }
+
+
 
         .project-card {
-            background: rgba(0, 217, 255, 0.02);
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            padding: 2.5rem;
-            position: relative;
-            border-radius: 20px;
+            background: #0d1422;
+            border: 1px solid rgba(59, 162, 185, 0.18);
+            padding: 2rem 2.2rem;
+            border-radius: 14px;
             overflow: hidden;
-            transition: all 0.4s ease;
-            width: calc(50% - 3rem);
-        }
-
-        .timeline-item:nth-child(odd) .project-card {
-            margin-right: auto;
-        }
-
-        .timeline-item:nth-child(even) .project-card {
-            margin-left: auto;
-        }
-
-        .project-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+            transition: all 0.35s ease;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 0, 128, 0.1));
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            position: relative;
         }
 
         .project-card:hover {
-            border-color: var(--color-primary);
-            box-shadow: 0 15px 50px rgba(0, 217, 255, 0.2);
-            transform: translateY(-10px);
+            border-color: rgba(59, 162, 185, 0.5);
+            box-shadow: 0 8px 40px rgba(0, 217, 255, 0.12);
+            transform: translateY(-4px);
         }
 
-        .project-card:hover::after {
-            opacity: 1;
-        }
-
-        .project-number {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            color: var(--color-secondary);
-            margin-bottom: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            position: relative;
-            z-index: 1;
-        }
+        .project-number { display: none; }
 
         .project-title {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            color: var(--color-text);
-            margin-bottom: 1rem;
-            letter-spacing: 0.03em;
+            font-family: 'Michroma', sans-serif;
+            font-size: 1.35rem;
+            color: var(--color-primary);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
             position: relative;
             z-index: 1;
+            text-shadow: 0 0 18px rgba(59, 162, 185, 0.4);
         }
 
         .project-desc {
-            color: var(--color-text-muted);
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            font-size: 1.05rem;
+            color: #6b8fa8;
+            margin-bottom: 1.4rem;
+            line-height: 1.75;
+            font-size: 0.97rem;
             position: relative;
             z-index: 1;
+        }
+
+        .project-bullets {
+            list-style: none;
+            margin-bottom: 1.4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-bullets li {
+            color: #6b8fa8;
+            line-height: 1.75;
+            font-size: 0.97rem;
+            margin-bottom: 0.7rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .project-bullets li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--color-secondary);
         }
 
         .project-tags {
             display: flex;
-            gap: 0.8rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
             position: relative;
             z-index: 1;
         }
 
         .tag {
-            padding: 0.5rem 1rem;
-            background: rgba(0, 217, 255, 0.1);
-            border: 1px solid var(--color-primary);
-            font-size: 0.85rem;
-            color: var(--color-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-radius: 12px;
+            padding: 0.38rem 1rem;
+            background: rgba(161, 78, 191, 0.15);
+            border: 1.5px solid var(--color-secondary);
+            font-size: 0.82rem;
+            color: var(--color-secondary);
+            border-radius: 999px;
             font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: none;
+            transition: background 0.2s ease;
+        }
+
+        .tag:hover {
+            background: rgba(161, 78, 191, 0.3);
         }
 
         .education-grid {
@@ -1004,7 +1045,7 @@
         .ai-bot {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, rgba(26, 200, 237, 0.8), rgba(175, 117, 149, 0.8));
+            background: linear-gradient(135deg, rgba(26, 200, 237, 0.8), rgba(161, 78, 191, 0.8));
             border: 3px solid var(--color-primary);
             border-radius: 50%;
             display: flex;
@@ -1228,14 +1269,12 @@
             .skills-grid { grid-template-columns: 1fr; gap: 1.5rem; }
             .skill-card { padding: 1.8rem; }
 
-            /* Experience & Projects timeline — shift to left-aligned */
-            .timeline-line,
+            /* Experience timeline — shift to left-aligned */
             .experience-line {
                 left: 16px;
                 transform: none;
             }
 
-            .timeline-item,
             .experience-item {
                 flex-direction: column !important;
                 padding-left: 50px;
@@ -1243,7 +1282,6 @@
                 margin-bottom: 3rem;
             }
 
-            .timeline-dot,
             .experience-dot {
                 left: 7px;
                 transform: none;
@@ -1251,7 +1289,6 @@
                 height: 18px;
             }
 
-            .timeline-date,
             .experience-date {
                 position: relative;
                 left: auto;
@@ -1262,17 +1299,17 @@
                 font-size: 0.8rem;
             }
 
-            .project-card,
             .experience-card {
                 width: 100% !important;
                 margin: 0 !important;
                 padding: 1.5rem;
             }
 
-            .experience-company,
-            .project-title { font-size: 1.4rem; }
+            .experience-company { font-size: 1.4rem; }
+            .experience-achievements li { font-size: 0.95rem; }
 
-            .experience-achievements li,
+            /* Projects stacked — just shrink padding on mobile */
+            .project-card { padding: 1.5rem; }
             .project-desc { font-size: 0.95rem; }
 
             /* Education */
@@ -1323,8 +1360,8 @@
             .certs-grid { grid-template-columns: 1fr; }
 
             /* Timeline dates — smaller text */
-            .timeline-date,
             .experience-date { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
+            .timeline-date { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
 
             /* Tags wrap better */
             .tag { font-size: 0.75rem; padding: 0.35rem 0.7rem; }
@@ -1365,7 +1402,9 @@
     </nav>
 
     <section class="hero">
-        <h1 class="hero-title">Chakrinee Ayalasomayajula</h1>
+        <div class="hero-title-wrap" data-text="Chakrinee Ayalasomayajula">
+            <h1 class="hero-title">Chakrinee Ayalasomayajula</h1>
+        </div>
         <p class="hero-subtitle">
             Security Engineer | DFIR & Threat Detection | Product & Cloud Security
         </p>
@@ -1498,103 +1537,134 @@
             <div class="projects-timeline">
                 <div class="timeline-line"></div>
 
+                <!-- Project 00 -->
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-date">Jan 2026 - Present</div>
+                    <div class="timeline-date">Feb 2026 - Present</div>
                     <div class="project-card">
                         <div class="project-number">00</div>
-                        <h3 class="project-title">Secure Multi-Tenant Agentic RAG</h3>
-                        <p class="project-desc">
-                            Building a system where multiple users/companies share the same infrastructure but data is isolated
-                        </p>
+                        <h3 class="project-title">Secure Multi-Tenant Agentic RAG – AWS + AI</h3>
+                        <p class="project-desc">Building a secure cloud AI platform where multiple organizations share infrastructure with fully isolated data — enforced via AWS Cognito, per-tenant S3 buckets, Pinecone namespace scoping, prompt-level guardrails, and end-to-end audit logging for compliance.</p>
                         <div class="project-tags">
-                            <span class="tag">MCP Layer</span>
-                            <span class="tag">Backend & API</span>
-                            <span class="tag">Vector Database</span>
-                            <span class="tag">LLM & AI Layer</span>
-                            <span class="tag">DevOps</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">LangChain</span>
+                            <span class="tag">AWS Cognito</span>
+                            <span class="tag">Pinecone</span>
+                            <span class="tag">DynamoDB</span>
+                            <span class="tag">CloudWatch</span>
                         </div>
                     </div>
                 </div>
 
+                <!-- Project 01 -->
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-date">Nov 2025 - Dec 2025</div>
                     <div class="project-card">
                         <div class="project-number">01</div>
                         <h3 class="project-title">DFIR Malware Investigation & Incident Timeline Reconstruction</h3>
-                        <p class="project-desc">
-                            Performed forensic analysis on a compromised disk image (VMDK), identifying malicious executables through file system analysis, execution timelines, and user activity artifacts. Conducted malware behavior analysis using static indicators and controlled execution, uncovering HTTP-based outbound communication and embedded attacker messages within URL paths. Correlated host-based artifacts and network traffic to reconstruct a defensible incident timeline, identifying encryption usage to conceal the final malware payload.
-                        </p>
+                        <p class="project-desc">Forensically analyzed a compromised VMDK disk image to identify malicious executables, trace HTTP-based C2 communication, and reconstruct a full incident timeline by correlating host artifacts with network traffic.</p>
                         <div class="project-tags">
                             <span class="tag">Autopsy</span>
-                            <span class="tag">VeraCrypt</span>
                             <span class="tag">Wireshark</span>
                             <span class="tag">VirusTotal</span>
-                            <span class="tag">Forensics</span>
+                            <span class="tag">VeraCrypt</span>
+                            <span class="tag">DFIR</span>
                         </div>
                     </div>
                 </div>
 
+                <!-- Project 02 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">May 2025 - Jul 2025</div>
+                    <div class="project-card">
+                        <div class="project-number">02</div>
+                        <h3 class="project-title">Elastic Stack SIEM Lab (SOC Simulation)</h3>
+                        <p class="project-desc">Deployed a full Elastic Stack SIEM to simulate SOC operations — performing real-time log correlation, threat detection, and incident response, with Google SecOps / Chronicle integration for threat intelligence enrichment.</p>
+                        <div class="project-tags">
+                            <span class="tag">Elasticsearch</span>
+                            <span class="tag">Kibana</span>
+                            <span class="tag">Elastic Agent</span>
+                            <span class="tag">Fleet Server</span>
+                            <span class="tag">Google SecOps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 03 -->
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-date">Feb 2025 - Mar 2025</div>
                     <div class="project-card">
-                        <div class="project-number">02</div>
-                        <h3 class="project-title">Threat Modeling with STRIDE</h3>
-                        <p class="project-desc">
-                            Assessed cyber risks for an AI-powered security robot in critical infrastructure. Modeled 10+ attack 
-                            scenarios using STRIDE, evaluated 50+ vulnerabilities through DREAD and CVSS metrics, and delivered 
-                            actionable mitigations using a tiered risk matrix.
-                        </p>
+                        <div class="project-number">03</div>
+                        <h3 class="project-title">Threat Modeling & Risk Scoring for AI-Enabled Systems</h3>
+                        <p class="project-desc">Modeled 10+ attack scenarios using STRIDE and scored 50+ vulnerabilities via DREAD and CVSS v3.1 for an AI system in critical infrastructure, exposing key limitations of static scoring in AI-driven environments.</p>
                         <div class="project-tags">
                             <span class="tag">STRIDE</span>
                             <span class="tag">DREAD</span>
                             <span class="tag">CVSS v3.1</span>
-                            <span class="tag">Risk Assessment</span>
+                            <span class="tag">MITRE ATT&CK</span>
                         </div>
                     </div>
                 </div>
 
+                <!-- Project 04 -->
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-date">Jan 2025 - Apr 2025</div>
                     <div class="project-card">
-                        <div class="project-number">03</div>
-                        <h3 class="project-title">SOC Alert Dashboard with TTS</h3>
-                        <p class="project-desc">
-                            Developed a Python-based CNN SOC Alert Snapshot Analyzer using AlexNet to classify alert severity 
-                            from dashboard images. Integrated LLaMA 2 for alert summaries, reducing decision time by 30% and 
-                            accelerating incident response by 25%.
-                        </p>
+                        <div class="project-number">04</div>
+                        <h3 class="project-title">ML Based Detection Engineering for SOC Environments</h3>
+                        <p class="project-desc">Built an LLM-assisted alert triage system using LLaMA 2 to summarize SOC alerts and reduce analyst decision time by 30%, with AI-driven anomaly detection and voice notifications via gTTS to cut incident response time by 25%.</p>
                         <div class="project-tags">
                             <span class="tag">Python</span>
-                            <span class="tag">AlexNet CNN</span>
                             <span class="tag">LLaMA 2</span>
+                            <span class="tag">gTTS API</span>
                             <span class="tag">ML</span>
+                            <span class="tag">NumPy</span>
                         </div>
                     </div>
                 </div>
 
+                <!-- Project 05 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Sep 2024 - Dec 2024</div>
+                    <div class="project-card">
+                        <div class="project-number">05</div>
+                        <h3 class="project-title">E-Commerce Architecture & Security Design – AWS</h3>
+                        <p class="project-desc">Identified 20+ vulnerabilities across EC2, S3, and VPC using AWS Inspector and GuardDuty, then designed hardened remediations — least-privilege IAM, KMS encryption, VPC segmentation, and automated disaster recovery.</p>
+                        <div class="project-tags">
+                            <span class="tag">AWS IAM</span>
+                            <span class="tag">VPC</span>
+                            <span class="tag">GuardDuty</span>
+                            <span class="tag">Amazon Inspector</span>
+                            <span class="tag">EC2</span>
+                            <span class="tag">S3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 06 -->
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-date">Sep 2023 - Mar 2024</div>
                     <div class="project-card">
-                        <div class="project-number">04</div>
-                        <h3 class="project-title">Data Trustworthiness in Crowdsourcing</h3>
-                        <p class="project-desc">
-                            Developed a real-time malicious user detection model using GANs and Random Forest Classifier. 
-                            Generated 50,000 synthetic records from 10,000 initial samples, enhancing binary classification 
-                            accuracy from 78% to 99.4% (21.4% improvement).
-                        </p>
+                        <div class="project-number">06</div>
+                        <h3 class="project-title">Data Trustworthiness in Mobile Crowdsourcing</h3>
+                        <p class="project-desc">Trained a GAN + Random Forest model to detect malicious users in real-time crowdsourced data. Synthetic data augmentation (10K → 50K records) pushed binary classification accuracy from 78% to 99.4%.</p>
                         <div class="project-tags">
                             <span class="tag">GANs</span>
                             <span class="tag">Random Forest</span>
                             <span class="tag">Python</span>
-                            <span class="tag">ML Security</span>
+                            <span class="tag">scikit-learn</span>
+                            <span class="tag">pandas</span>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -1760,7 +1830,7 @@
         const nodes = [];
         const nodeCount = 80;
         const connectionDistance = 150;
-        const colors = ['rgba(26, 200, 237, 0.8)', 'rgba(175, 117, 149, 0.8)'];
+        const colors = ['rgba(26, 200, 237, 0.8)', 'rgba(161, 78, 191, 0.8)'];
 
         class Node {
             constructor() {
@@ -1949,3 +2019,11 @@
             });
             links.forEach(l => {
                 l.classList.remove('active');
+
+                            if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+            });
+        });
+
+    </script>
+</body>
+</html>
